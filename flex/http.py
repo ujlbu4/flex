@@ -315,7 +315,7 @@ class Response(URLMixin):
 
     @property
     def data(self):
-        if self.content is EMPTY:
+        if self.content is EMPTY or not self.content:
             return self.content
         elif self.content_type and self.content_type.startswith('application/json'):
             try:

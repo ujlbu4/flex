@@ -1,3 +1,13 @@
+6.12.0
+-----
+
+- SECURITY FIX: Change to use `yaml.safe_load` to prevent remote code execution vulnerability.
+
+6.11.1
+-----
+
+- Bugfix for handling of `MULTI` parameters when there is only a single value.
+
 6.11.0
 -----
 

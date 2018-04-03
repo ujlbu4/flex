@@ -2,9 +2,9 @@ import functools
 
 from flex.datastructures import ValidationDict
 from flex.exceptions import ValidationError
-from flex.utils import chain_reduce_partial
+from flex.functional import chain_reduce_partial
 from flex.functional import attrgetter, methodcaller
-from flex.context_managers import ErrorCollection
+from flex.context_managers import ErrorDict
 from flex.validation.common import (
     validate_object,
     validate_path_to_api_path,
@@ -200,7 +200,7 @@ def validate_response(response, request_method, schema):
           schemas for the responses.
        6. headers, content-types, etc..., ???
     """
-    with ErrorCollection() as errors:
+    with ErrorDict() as errors:
         # 1
         # TODO: tests
         try:
@@ -222,7 +222,7 @@ def validate_response(response, request_method, schema):
                 path_definition=path_definition,
             )
         except ValidationError as err:
-            errors['method'].append(err.message)
+            errors['method'].add_error(err.detail)
             return
 
         # 4
